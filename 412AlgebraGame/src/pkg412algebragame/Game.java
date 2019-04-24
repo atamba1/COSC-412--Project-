@@ -14,19 +14,18 @@ import java.util.TimerTask;
  */
 public class Game {
 
-    public static int max, min, score = 0, clock = 20;
-    public static String question;
-    public static boolean run = true;
+    public static int max, min, Score = 0, clock = 20;
+    public static String Question;
+    public static boolean run;
     public static Timer t;
     public static TimerTask tt;
+    public static String answer = null;
     public Gui g = new Gui();
     public Replay r = new Replay();
     
     public void run() 
     {
-        g.setVisible(true);
-        while(run = true)
-        {
+        //g.setVisible(true);
         tt = new TimerTask() {
             @Override
             public void run() 
@@ -36,9 +35,12 @@ public class Game {
         };
         t = new Timer();
         t.scheduleAtFixedRate(tt, 1000, 1000);
-        g.setScore(score);
+        g.setScore(Score);
+        //while(run = true)
+        {
         repaint();
         replay();
+        run = false;
         }
     }
     
@@ -100,7 +102,7 @@ public class Game {
             t.cancel();
         return clock--;
     }
-    public void checkAns(int ques, double a, double b, String answer, Gui g)
+    public void checkAns(int ques, double a, double b, String answer)
     {
         boolean an = false;
         System.out.println("" + ques + " " + a + " " + b + " " + answer);
@@ -108,7 +110,7 @@ public class Game {
         {
             if(ADD(a,b,answer))
             {
-                score++;
+                Score++;
                 clock+=10;
                 System.out.println("correct");
                 an = true;
@@ -116,7 +118,7 @@ public class Game {
             else
             {
                 run = false;
-                score = 0;
+                Score = 0;
                 System.out.println("incorrect");
             }
         }
@@ -124,7 +126,7 @@ public class Game {
         {
             if(SUB(a,b,answer))
             {
-                score++;
+                Score++;
                 clock+=10;
                 an = true;
                 System.out.println("correct");
@@ -132,7 +134,7 @@ public class Game {
             else
             {
                 run = false;
-                score = 0;
+                Score = 0;
                 System.out.println("incorrect");
             }
         }
@@ -140,7 +142,7 @@ public class Game {
         {
             if(MUL(a,b,answer))
             {
-                score++;
+                Score++;
                 clock+=10;
                 an = true;
                 System.out.println("correct");
@@ -148,7 +150,7 @@ public class Game {
             else
             {
                 run = false;
-                score = 0;
+                Score = 0;
                 System.out.println("incorrect");
             }
         }
@@ -156,7 +158,7 @@ public class Game {
         {
             if(DIV(a,b,answer))
             {
-                score++;
+                Score++;
                 clock+=10;
                 an = true;
                 System.out.println("correct");
@@ -164,7 +166,7 @@ public class Game {
             else
             {
                 run = false;
-                score = 0;
+                Score = 0;
                 System.out.println("incorrect");
             }
         }
@@ -183,39 +185,43 @@ public class Game {
         g.dispose();
         t.cancel();
         r.setTime(clock);
-        r.setScore(score);
-        r.sc = score;
+        r.setScore(Score);
+        r.sc = Score;
         r.ti = clock;
         r.Rep();
         r.setVisible(true);
     }
     public void repaint()
     {
-        g.repaint();
         g.setVisible(true);
+        //g.repaint();
         int a = RNG(1,9);
         int b = RNG(1,9);
         int ans = (int)(Math.random() * 4 + 1);
-        String answer = g.getAns();
+        answer = g.getAns();
         if(ans == 1)
         {
-            question = ( "x + " + a + " = " + b );
-            g.setQuestion(question);
+            Question = ( "x + " + a + " = " + b );
+            g.setQuestion(Question);
         }
         if(ans == 2)
         {
-            question = ( "x - " + a + " = " + b );
-            g.setQuestion(question);
+            Question = ( "x - " + a + " = " + b );
+            g.setQuestion(Question);
         }
         if(ans == 3)
         {
-            question = ( "x * " + a + " = " + b );
-            g.setQuestion(question);
+            Question = ( "x * " + a + " = " + b );
+            g.setQuestion(Question);
         }
         if(ans == 4)
         {
-            question = ( "x / " + a + " = " + b );
-            g.setQuestion(question);
+            Question = ( "x / " + a + " = " + b );
+            g.setQuestion(Question);
+        }
+        if(answer == null || answer.equals(".0"))
+        {
+            answer = null;
         }
         while(answer == null)
         {
@@ -227,16 +233,15 @@ public class Game {
             {
                 if(answer.charAt(0) == '.')
                 {
-                    checkAns(ans,a,b,"0"+answer,g);
+                    checkAns(ans,a,b,"0"+answer);
                 }
             }
             else
             {
                 answer = answer+".0";
-                checkAns(ans,a,b,answer,g);
+                checkAns(ans,a,b,answer);
             }
         }
-        g.setText(null);
         answer = null;
     }
 }

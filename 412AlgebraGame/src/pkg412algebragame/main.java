@@ -9,8 +9,9 @@ public class main{
     
     public static void main(String[] args)
     {
-        Game run = new Game();
-        run.run();
+        Gui g = new Gui();
+        g.setVisible(true);
+        g.run();
     }
 }
 

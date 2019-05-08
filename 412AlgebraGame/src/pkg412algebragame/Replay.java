@@ -50,13 +50,14 @@ public class Replay extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                //Gui g = new Gui();
+                Gui g = new Gui();
                 Gui.clock = ti;
                 Gui.Score = sc;
                 Gui.answer = null;
                 Gui.run = true;
-                //g.run();
+                g.setVisible(true);
                 //g.play();
+                g.run();
             }
         });
     }

@@ -5,6 +5,7 @@
  */
 package pkg412algebragame;
 
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -99,12 +100,10 @@ public class Gui extends javax.swing.JFrame {
     public static Timer t;
     public static TimerTask tt;
     public static String answer = null;
-    //public Gui g = new Gui();
     public Replay r = new Replay();
     
     public void run() 
     {
-        //setVisible(true);
         tt = new TimerTask() {
             @Override
             public void run() 
@@ -133,7 +132,6 @@ public class Gui extends javax.swing.JFrame {
         boolean g = false;
         double c = (b-a);
         String d = "" + c;
-        System.out.println(d);
         if(answer.equals(d))
             g = true;
         
@@ -144,7 +142,6 @@ public class Gui extends javax.swing.JFrame {
         boolean g = false;
         double c = (b+a);
         String d = "" + c;
-        System.out.println(d);
         if(answer.equals(d))
             g = true;
         
@@ -157,7 +154,6 @@ public class Gui extends javax.swing.JFrame {
         DecimalFormat df = new DecimalFormat("#.##");
         double p = Double.parseDouble(df.format(c));
         String d = "" + p;
-        System.out.println(d);
         if(answer.equals(d))
             g = true;
         
@@ -168,7 +164,6 @@ public class Gui extends javax.swing.JFrame {
         boolean g = false;
         double c = (b*a);
         String d = "" + c;
-        System.out.println(d);
         if(answer.equals(d))
             g = true;
         
@@ -176,28 +171,31 @@ public class Gui extends javax.swing.JFrame {
     }
     public int getTime()
     {
-        if(clock ==1)
+        if(clock ==0)
+        {
             t.cancel();
+            r.setAnswer("Out of Time");
+            dispose();
+            replay();
+        }
+        
         return clock--;
     }
     public void checkAns(int ques, double a, double b, String answer)
     {
         boolean ant = false;
-        System.out.println("" + ques + " " + a + " " + b + " " + answer);
         if(ques == 1)
         {
             if(ADD(a,b,answer))
             {
                 Score++;
-                clock+=10;
-                System.out.println("correct");
+                clock+=5;
                 ant = true;
             }
             else
             {
                 run = false;
                 Score = 0;
-                System.out.println("incorrect");
             }
         }
         if(ques == 2)
@@ -205,15 +203,13 @@ public class Gui extends javax.swing.JFrame {
             if(SUB(a,b,answer))
             {
                 Score++;
-                clock+=10;
+                clock+=5;
                 ant = true;
-                System.out.println("correct");
             }
             else
             {
                 run = false;
                 Score = 0;
-                System.out.println("incorrect");
             }
         }
         if(ques == 3)
@@ -221,15 +217,13 @@ public class Gui extends javax.swing.JFrame {
             if(MUL(a,b,answer))
             {
                 Score++;
-                clock+=10;
+                clock+=5;
                 ant = true;
-                System.out.println("correct");
             }
             else
             {
                 run = false;
                 Score = 0;
-                System.out.println("incorrect");
             }
         }
         if(ques == 4)
@@ -237,15 +231,13 @@ public class Gui extends javax.swing.JFrame {
             if(DIV(a,b,answer))
             {
                 Score++;
-                clock+=10;
+                clock+=5;
                 ant = true;
-                System.out.println("correct");
             }
             else
             {
                 run = false;
                 Score = 0;
-                System.out.println("incorrect");
             }
         }
 
@@ -257,23 +249,25 @@ public class Gui extends javax.swing.JFrame {
        {
            r.setAnswer("Incorrect");
        }
+       java.awt.Window win[] = java.awt.Window.getWindows();
+        for(Window win1 : win) {
+            win1.dispose();
+        }
        replay();
     }
     public void replay()
     {
-        //dispose();
+        dispose();
         t.cancel();
         r.setTime(clock);
-        r.setScore(Score);
-        r.sc = Score;
+        r.setScore(Score-1);
+        r.sc = Score-1;
         r.ti = clock;
         r.Rep();
         r.setVisible(true);
     }
     public void play()
     {
-        //setVisible(true);
-        //g.repaint();
         a = RNG(1,9);
         b = RNG(1,9);
         an = (int)(Math.random() * 4 + 1);
@@ -284,7 +278,11 @@ public class Gui extends javax.swing.JFrame {
         String d = "" + p;
         setAnswer1("" + (a+b));
         setAnswer2("" + (b-a));
-        setAnswer3(d);
+        if(a == 1 || b == 1)
+        {
+            setAnswer3("" + a/b);
+        }
+        else {setAnswer3(d);}
         setAnswer4("" + (a*b));
         if(an == 1)
         {
@@ -306,7 +304,7 @@ public class Gui extends javax.swing.JFrame {
             Question = ( "x / " + a + " = " + b );
             setQuestion(Question);
         }
-        getAns();
+       getAns();
     }
     /**
      * This method is called from within the constructor to initialize the form.

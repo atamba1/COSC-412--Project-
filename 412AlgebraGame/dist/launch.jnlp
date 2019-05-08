@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>412AlgebraGame</title>
+        <vendor>TheMe</vendor>
+        <homepage href=""/>
+        <description>412AlgebraGame</description>
+        <description kind="short">412AlgebraGame</description>
+    </information>
+    <update check="always"/>
+    <resources>
+        <j2se version="1.8+"/>
+        <jar href="412AlgebraGame.jar" main="true"/>
+    <jar href="lib/mysql-connector-java-5.1.47-bin.jar"/>
+</resources>
+    <application-desc main-class="pkg412algebragame.main">
+    </application-desc>
+</jnlp>

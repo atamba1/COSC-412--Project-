@@ -25,7 +25,7 @@ public class main{
         try
         {
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:msql://localhost:3306/database";
+            String url = "jdbc:mysql://localhost:3306/database";
             
             Class.forName(driver);
             Connection data = DriverManager.getConnection(url,user,pass);

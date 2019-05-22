@@ -24,36 +24,37 @@ public class Gui extends javax.swing.JFrame {
     public String ans;
     public Gui() {
         initComponents();
+        setLocationRelativeTo(null);
     }
-    public void setTime(int t)
+    public void setTime(int t)//sets the time of the gui
     {
         time.setText("" + t);
     }
-    public void setScore(int s)
+    public void setScore(int s)//sets the score of the gui
     {
         score.setText("" + s);
     }
-    public void setQuestion(String q)
+    public void setQuestion(String q)//sets the question of the gui
     {
         question.setText(q);
     }
-    public void setAnswer1(String g)
+    public void setAnswer1(String g)//sets the first multiple choice answer of the gui
     {
         Answer1.setText(g);
     }
-    public void setAnswer2(String g)
+    public void setAnswer2(String g)//sets the second multiple choice answer of the gui
     {
         Answer2.setText(g);
     }
-    public void setAnswer3(String g)
+    public void setAnswer3(String g)//sets the third multiple choice answer of the gui
     {
         Answer3.setText(g);
     }
-    public void setAnswer4(String g)
+    public void setAnswer4(String g)//sets the fourth multiple choice answer of the gui
     {
         Answer4.setText(g);
     }
-    public String getAns()
+    public String getAns()//adds the actionlistener to all of the answers
     {
         Answer1.addActionListener(new ActionListener() 
     {
@@ -102,7 +103,7 @@ public class Gui extends javax.swing.JFrame {
     public static String answer = null;
     public Replay r = new Replay();
     
-    public void run() 
+    public void run()//runs the game 
     {
         tt = new TimerTask() {
             @Override
@@ -121,13 +122,13 @@ public class Gui extends javax.swing.JFrame {
         }
     }
     
-    public static int RNG(int min, int max)
+    public static int RNG(int min, int max)//creates a radnomly generated number between the min and max
     {
         int g = (int) (Math.random() * max + min);
         return g;
     }
     
-    public static boolean ADD(double a, double b, String answer)
+    public static boolean ADD(double a, double b, String answer)//checks if the answer is correct IF the question is an addition question
     {
         boolean g = false;
         double c = (b-a);
@@ -137,7 +138,7 @@ public class Gui extends javax.swing.JFrame {
         
         return g;
     }
-    public static boolean SUB(double a, double b, String answer)
+    public static boolean SUB(double a, double b, String answer)//checks if the answer is correct IF the question is a subtraction question
     {
         boolean g = false;
         double c = (b+a);
@@ -147,7 +148,7 @@ public class Gui extends javax.swing.JFrame {
         
         return g;
     }
-    public static boolean MUL(double a, double b, String answer)
+    public static boolean MUL(double a, double b, String answer)//checks if the answer is correct IF the question is a multiplication question
     {
         boolean g = false;
         double c = (b/a);
@@ -159,7 +160,7 @@ public class Gui extends javax.swing.JFrame {
         
         return g;
     }
-    public static boolean DIV(double a, double b, String answer)
+    public static boolean DIV(double a, double b, String answer)//checks if the answer is correct IF the question is a division question
     {
         boolean g = false;
         double c = (b*a);
@@ -169,19 +170,19 @@ public class Gui extends javax.swing.JFrame {
         
         return g;
     }
-    public int getTime()
+    public int getTime()//gets the time of the clock, will stop if the time reaches 0
     {
         if(clock ==0)
         {
             t.cancel();
-            r.setAnswer("Out of Time");
+            r.setAnswer("Go Outside");
             dispose();
             replay();
         }
         
         return clock--;
     }
-    public void checkAns(int ques, double a, double b, String answer)
+    public void checkAns(int ques, double a, double b, String answer)//calls the checks for each type of question
     {
         boolean ant = false;
         if(ques == 1)
@@ -195,7 +196,6 @@ public class Gui extends javax.swing.JFrame {
             else
             {
                 run = false;
-                Score = 0;
             }
         }
         if(ques == 2)
@@ -209,7 +209,6 @@ public class Gui extends javax.swing.JFrame {
             else
             {
                 run = false;
-                Score = 0;
             }
         }
         if(ques == 3)
@@ -223,7 +222,6 @@ public class Gui extends javax.swing.JFrame {
             else
             {
                 run = false;
-                Score = 0;
             }
         }
         if(ques == 4)
@@ -237,7 +235,6 @@ public class Gui extends javax.swing.JFrame {
             else
             {
                 run = false;
-                Score = 0;
             }
         }
 
@@ -255,7 +252,7 @@ public class Gui extends javax.swing.JFrame {
         }
        replay();
     }
-    public void replay()
+    public void replay()//calls the replay gui
     {
         dispose();
         t.cancel();
@@ -266,7 +263,7 @@ public class Gui extends javax.swing.JFrame {
         r.Rep();
         r.setVisible(true);
     }
-    public void play()
+    public void play()//does the math for the game
     {
         a = RNG(1,9);
         b = RNG(1,9);
@@ -278,11 +275,7 @@ public class Gui extends javax.swing.JFrame {
         String d = "" + p;
         setAnswer1("" + (a+b));
         setAnswer2("" + (b-a));
-        if(a == 1 || b == 1)
-        {
-            setAnswer3("" + a/b);
-        }
-        else {setAnswer3(d);}
+        setAnswer3("" + (b/a));
         setAnswer4("" + (a*b));
         if(an == 1)
         {

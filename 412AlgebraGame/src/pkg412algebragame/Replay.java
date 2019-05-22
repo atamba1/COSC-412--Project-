@@ -20,20 +20,21 @@ public class Replay extends javax.swing.JFrame {
     public int ti, sc;
     public Replay() {
         initComponents();
+        setLocationRelativeTo(null);
     }
-    public void setTime(int t)
+    public void setTime(int t)//sets the time of the replay gui
     {
         time.setText("" + t);
     }
-    public void setScore(int s)
+    public void setScore(int s)//sets the score of the replay gui
     {
         score.setText("" + s);
     }
-    public void setAnswer(String s)
+    public void setAnswer(String s)//sets whether you got the answer right or wrong of the replay gui
     {
         answer.setText(s);
     }
-    public void Rep()
+    public void Rep()//adds the actionlisteners to the gui
     {
             quit.addActionListener(new ActionListener() 
     {
